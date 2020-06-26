@@ -1,0 +1,764 @@
+/*-----------------------------------------------
+****BASIC SETUP
+-----------------------------------------------*/
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box; /* content will fill the whole box*/
+}
+
+html,
+body {
+    background-color:white;
+    color: rgb(165, 164, 164);
+    font-family: 'Lato', 'Arial', sans-serif;
+    font-size: 20px;  /*default */
+    font-weight: 300;
+    text-rendering: optimizeLegibility; /*fonts rendering in the best way possible*/
+    overflow-x: hidden;
+}
+
+
+
+/*These clearfix classes are quite standard, use it as it is to "clear the float" ! */
+.clearfix {/*otherwise it adds additional margin that we don't want due to the float properties*/
+    zoom:1
+}
+/*added to the CHILD element !!*/
+
+.clearfix:after {
+    content: '.';
+    clear:both;
+    display:block;
+    height: 0;
+    visibility: hidden;
+}
+/*added to the CHILD element !!*/
+
+
+/*base color : #e67e22 */
+
+
+/*-----------------------------------------------
+****REUSABLE COMPONENTS
+-----------------------------------------------*/
+.row {
+    max-width: 1140px;
+    /*margin: 0 auto 0 auto;*/
+    margin: 0 auto; /* set TOP and BOTTOM to 0 and LEFT AND RIGHT to auto */
+}
+
+section {
+    padding: 80px 0;
+}
+
+.box {
+    padding: 1%;
+}
+
+/*-----------------------------------------------
+****Paragraphs
+-----------------------------------------------*/
+.long-copy {
+    line-height: 145%;
+    width: 70%; /*otherwise it's too long, too many characters*/
+    margin-left: 15%; /* to have it center. Why 15% ? total = 100 - 70 of the width, remain 30 .. /2 */
+}
+
+.box p {
+    font-size: 90%;
+    line-height: 145%;
+}
+
+/*-----------------------------------------------
+****FEATURES 
+-----------------------------------------------*/
+
+.section-features .long-copy {
+    margin-bottom: 30px;   
+}
+
+/*-----------------------------------------------
+****HEADINGS
+-----------------------------------------------*/
+h1, 
+h2,
+h3 {
+    font-weight: 300; /*remove the standard BOLD of the H1*/
+    text-transform: uppercase; 
+
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color:white;
+    font-size: 250%; /*as we make responsive website, we prefer to work with values likes this*/
+    word-spacing: 4 px;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-size: 180%;
+    word-spacing: 2px;
+    text-align:center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-size: 110%;
+    margin-bottom: 15px;
+}
+
+h2:after { /*means it will appear AFTER/below the h2*/
+    display: block;
+    height: 2px;
+    background-color: #e67e22;
+    content: " "; /*WHENEVER YOU DO A :after class you need to specify it's content even if it's nothing*/
+    width: 150px;
+    margin: 0 auto; /*will help us to have our line centered*/
+    margin-top: 20px;
+}
+
+/*-----------------------------------------------
+****GENERIC LINKS
+-----------------------------------------------*/
+
+a:link,
+a:visited {
+    color: #e67e22;
+    text-decoration: none;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #e67e22;
+    transition: border-bottom 0.5s, color 0.5s;
+}
+
+a:hover,
+a:active {
+    color: rgb(165, 164, 164);
+    border-bottom: 1px solid transparent
+}
+
+
+
+/*-----------------------------------------------
+****BUTTONS
+-----------------------------------------------*/
+.btn:link,/* :link means the a elements in their NORMAL state, before visiting*/
+.btn:visited, /* :visited and we keep the same because we don't want our button to change*/
+input[type=submit] {  /*select the submit button*/
+    display: inline-block; /* so now they these "a" elements are considered as BLOCKS and not elements anymore*/
+    padding: 10px 30px; /* 10 on top and bottom, 30 left and right*/
+    font-weight: 300;
+    text-decoration: none; /*remove the standard style for link*/
+    border-radius: 200px;
+    border: 1px solid #e67e22;
+    transition: background-color 0.2s, border 0.2s, color 0.2s ; /*Animation when we hover on the links*/
+}
+
+
+.btn-full:link,
+.btn-full:visited,
+input[type=submit]  {
+    background-color: #e67e22;
+    color:white;
+    margin-right: 15px;
+}
+
+.btn-ghost:link,
+.btn-ghost:visited {
+    color:#e67e22;
+}
+
+
+.btn:hover, /*when we are on the button*/
+.btn:active,
+input[type=submit]:hover,
+input[type=submit]:active  { 
+    background-color: #cf6d17;
+}
+
+.btn-full:hover,
+.btn-full:active,
+input[type=submit]  {
+    border: 1px solid #cf6d17;
+}
+
+.btn-ghost:hover,
+.btn-ghost:active {
+    border: 1px solid #cf6d17;
+    color:white;
+}
+
+
+/*-----------------------------------------------
+****HEADER
+-----------------------------------------------*/
+header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(img/hero.jpg);
+    /*Little trick with image, add linear-gradient in front to make text more readble*/
+    background-size: cover;
+    background-position: center;
+    height: 100vh;/* 100vh = 100% of the view port // full screen */
+    background-attachment: fixed;
+}
+
+.hero-text-box {
+    position: absolute;
+    width: 1140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);/*translate the element half of it's width and heigth up and ot the left*/
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+    float: left;
+    margin-top: 20px;
+    transition: transform 2s;
+}
+.logo-black {
+    display:none;
+    height: 60px;
+    width: auto;
+    float: left;
+    margin: 5px 0; /*5px top and bottom*/
+}
+
+.logo-black {display:none;} /*we have our logo but by default, we hide it, should appear only when we reach the breakpoint for sticky nav*/
+
+.logo:hover {
+    transform: rotate(1turn);
+}
+
+/*-----------------------------------------------
+****MAIN NAVIGATION
+-----------------------------------------------*/
+
+.main-nav {
+    float: right;
+    list-style: none; /*remove the list item with bullet points*/
+    margin-top: 50px;    
+}
+
+.main-nav li {
+    display: inline-block; /*so they are side by side and not a list*/
+    margin-left: 40px;
+}
+
+.main-nav li a:link,
+.main-nav li a:visited {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.4s;
+    padding: 8px 0;
+}
+
+.main-nav li a:hover,
+.main-nav li a:active {
+    border-bottom: 2px solid #cf6d17;
+} 
+/*-----------------------------------------------
+****STICKY NAVIGATION
+-----------------------------------------------*/
+/*Sticky Navi ( linked with script.js for jQuery)*/
+/*we can add the sticky class in a first time to design the element and then remove it*/
+
+.sticky {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background-color: rgba(255, 255, 255, 0.911);
+    box-shadow: 0 3px 3px rgb(230, 230, 230);
+    z-index: 9999;
+}
+
+.sticky .main-nav {margin-top: 22px;}
+
+.sticky li a:link,
+.sticky li a:visited {
+    padding: 17px 0;
+    color: rgb(32, 32, 32);
+}
+.sticky .logo{display:none;} /*if the white logo is inside the sticky nav, hide it*/
+.sticky .logo-black {display:block;}  /*display the black one */
+
+
+
+/*-----------------------------------------------
+****MOBILE NAVIGATION
+-----------------------------------------------*/
+
+.mobile-nav-icon {
+    float:right;
+    margin-top: 30px;
+    cursor: pointer; /* to have the little hand when we are on the icon*/
+    display:none;
+}
+
+.mobile-icon {
+    font-size: 200%;
+    color: white;
+}
+
+
+
+
+
+
+/*-----------------------------------------------
+****ICONS
+-----------------------------------------------*/
+
+.icon-big {
+    font-size: 300%;
+    display: block;
+    color: #e67e22;
+    margin-bottom: 10px;
+}
+
+.icon-small {
+    display:inline-block; /*will make a block to wrap the icon*/
+    width: 30px; /*width of the block*/
+    text-align: center; /*center the element in the block*/
+    color: #e67e22;
+    height: 20px; /*linked with the font-size*/
+    font-size: 130%;
+    margin-right:5px;
+
+    /*align text and icons*/
+    line-height: 120%;
+    vertical-align: middle;
+    margin-top: -2px; /*will push the icon to the top*/
+}
+
+
+
+/*-----------------------------------------------
+****MEALS
+-----------------------------------------------*/
+
+.section-meals{
+    padding: 0;
+}
+
+.meals-showcase {
+    list-style: none;
+    width:100%;
+}
+
+.meals-showcase li {
+    display: block;
+    float:left;
+    width: 25%; /*4 elements will take 100% of the space of the meal-showcase class*/
+}
+
+.meal-photo {
+    width:100%; /*means that it must take 100% of the width of his parent element (meals-showcase li) */
+    margin:0;
+    overflow: hidden; /*imagine your image is bigger than the container, it will be hidden and don't go on top of the other elements*/
+    background-color:  black; /*linked with the opacity of .meal-photo img to have a kind of black filter otherwise it would be grey*/
+}
+
+.meal-photo img {
+    opacity: 0.7; /*image will be slighly */
+    width:100%; /*same comment as before*/
+    height: auto;
+    transform: scale(1.15); /*zoom on the picture*/
+    transition: transform 0.5s, opacity 0.5s;
+
+}
+
+.meal-photo img:hover {
+    opacity: 1;
+    transform: scale(1.03); /*kind of dezoom the picture*/
+}
+
+
+
+/*-----------------------------------------------
+****HOW IT WORKS
+-----------------------------------------------*/
+.section-steps {
+    background-color:rgb(238, 238, 238); /*design rule, it's better to have a very slightly different color for the different sections*/
+}
+
+.steps-box:first-child {
+    text-align: right; /*we have no text but this property works also for the inline blocks elements*/
+    padding-right: 3%;
+    margin-top: 30px;
+
+}
+
+.steps-box:last-child {
+    padding-left:3%;
+    margin-top: 70px;
+}
+
+.app-screen {
+    width: 40%;
+}
+
+.works-step {
+    margin-bottom: 50px;
+}
+
+.works-step:last-of-type {
+    margin-bottom: 80px;
+}
+
+.works-step div {
+    color:#e67e22;
+    border: 2px solid #e67e22;
+    display: block; /* block - so it doesn't force a line break with this property*/
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    font-size:150%;
+    padding: 5px;
+    float: left ; /*combined with display, we can have our text next to our numbers*/
+    margin-right: 20px;
+}
+
+.btn-app:link,
+.btn-app:visited {
+    border: 0; /*so it doesn't take the effect done for the a category*/
+}
+
+.btn-app img {
+    height: 50px;
+    width: auto;
+    margin-right: 10px;
+}
+
+
+/*-----------------------------------------------
+****CITIES
+-----------------------------------------------*/
+
+.box img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.city-feature {
+    margin-bottom: 5px;
+}
+
+
+
+/*-----------------------------------------------
+****TESTIMONIALS
+-----------------------------------------------*/
+
+.section-testimonials {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(./img/back-customers.jpg);
+    background-size: cover;
+    color:white;
+    background-attachment: fixed;
+}
+
+blockquote {
+    padding:2%;
+    font-style: italic;
+    line-height: 145%;
+    position:relative;
+    margin-top: 40px;
+}
+
+blockquote:before {
+    content: "\201C" ; /* https://css-tricks.com/snippets/html/glyphs/ */
+    display:block;
+    font-size: 500%;
+    position: absolute; /*so we can change its position*/
+    /*when a child had a position absolute need to make sure the parent has a position relative*/
+    top: -5px;
+    left: -5px;
+}
+
+cite {
+    font-size: 90%;
+    margin-top: 25px;
+    display:block;
+}
+
+cite img {
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+    margin-right: 10px;
+    border:1px solid #e67e22;
+    vertical-align: middle;
+}
+
+/*-----------------------------------------------
+****PRICING PLANS
+-----------------------------------------------*/
+
+.section-plans {
+    background-color: rgb(238, 238, 238);
+}
+
+.plan-box {
+    background-color: white;
+    border-radius: 5px;
+    width:90%;
+    margin-left: 5%; /*half of the remaining 10 % from the width*/
+    box-shadow: 0 2px 2px #efefef
+}
+
+.plan-box div {
+    padding: 15px;
+    border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.plan-box ul {
+    list-style: none;
+}
+
+.plan-box ul li {
+    padding : 5px 0;
+}
+
+.plan-box div:first-child {
+    background-color: rgb(248, 248, 248);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.plan-box div:last-child { /*to select the buttons, they are the last child of the element*/
+    text-align: center;
+    border:0;
+}
+
+.plan-price {
+    font-size: 200%;
+    margin-bottom: 10px;
+    font-weight: 100;
+    color: #e67e22;
+}
+
+.plan-price span {
+    font-size: 40%; /*!!! relative to the parent -> new base is font-size of plan-price*/
+    font-weight: 300;
+}
+
+.plan-price-meal {
+    font-weight: 80%;
+}
+
+
+
+
+/*-----------------------------------------------
+****SECTION FORM
+-----------------------------------------------*/
+
+.map-box {
+    display:inline-block;
+    width: 100%;
+    padding: 20px 10px;
+}
+
+.map {
+    background-image: url(img/map.png);
+    background-position: center;
+    height: 500px;
+    width: 50%;
+    display: block;
+    float: left;
+    border:0;
+}
+
+.global-form {
+    display: block;
+    float:right;
+    width: 50%;
+}
+
+
+.contact-form {
+    width: 60%;
+    margin: 0 auto; /*center the contact form in the parent element*/
+}
+
+input[type=text], /*select in input only the one with the following type*/
+input[type=email],
+select,
+textarea {
+    width: 100%;
+    padding:7px;
+    border-radius: 3px;
+    border: 1px solid rgb(221, 221, 221);
+}
+
+textarea {
+    height: 100px;
+}
+
+input[type=checkbox] {
+    margin: 10px 5px 10px 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+
+/*-----------------------------------------------
+****FOOTER
+-----------------------------------------------*/
+
+footer {
+    background-color: rgba(0, 0, 0, 0.801);
+    color:white;
+    padding: 15px;
+    font-size: 80%;
+}
+
+.footer-nav {
+    list-style: none;
+    float:left;
+}
+
+
+.social-links {
+    list-style: none;
+    float: right;
+}
+
+.social-links li,
+.footer-nav li {
+    display: inline-block;
+    margin-right:20px;
+    text-decoration: none;
+}
+
+.social-link li:last-child,
+.footer-nav li:last-child {
+    margin-right: 0;
+}
+
+.footer-nav li a:link,
+.footer-nav li a:visited,
+.social-links li a:link,
+.social-links li a:visited {
+    text-decoration: none;
+    border:0;
+    color:rgb(173, 173, 173);
+    transition: color 0.3s;
+}
+
+.footer-nav li a:hover,
+.footer-nav li a:active,
+.social-links li a:hover,
+.social-links li a:active {
+    color: rgb(245, 245, 245)
+}
+
+.logo-facebook,
+.logo-instagram,
+.logo-github,
+.logo-linkedin {
+    font-size: 150%;
+    transition: color 0.5s
+}
+
+
+.logo-facebook:hover{
+    color: #3b5998;
+}
+
+.logo-instagram:hover{
+    color: #517fa4
+}
+
+.logo-github:hover {
+    color: black
+}
+
+.logo-linkedin:hover {
+    color:  #0e76a8
+}
+
+
+.footer-copyright {
+    font-size: 80%;
+    color: rgb(173, 173, 173);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.footer-copyright span {
+    color:#e67e22;
+}
+
+.footer-copyright span a {
+    border: none;
+}
+
+
+/*-----------------------------------------------
+****ANIMATIONS -jQuerry
+-----------------------------------------------*/
+
+.js--wp-1,
+.js--wp-2,
+.js--wp-3 {
+    opacity:0; /*element disapear*/
+    animation-duration: 1s;
+}
+
+.js--wp-4{
+    animation-duration: 1s;
+}
+/*As this is for the pricing plan, we don't want to to be hidden at the beginning*/
+
+.js--wp-1.animated,
+.js--wp-2.animated,
+.js--wp-3.animated { /*all in 1word, this is how to have 2 classes at the same time*/
+    opacity:1;
+}
+
+
+
+
+
+
+
+/*
+adaptability in different browers : 
+
+android: -webkit-
+chome:-webkit-
+firefox: -moz-
+Internet explorer: -ms-
+ios: -webkit-
+opera: -o-
+safari :-webkit-
+
+
+
+border-radius:25px;
+would be 
+
+
+
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+-o-border-radius: 25px;
+-ms-border-radius: 25px;
+
+
+installed autoprefixer
+
+ctrl-shift-p to make it work
+*/
